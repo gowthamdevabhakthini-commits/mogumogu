@@ -15,14 +15,15 @@ Brute-force classical verification confirms the exact optimum selection as items
 
 | Metric | Processor A (5 Qubits) | Processor B (9 Qubits) | Difference / Impact |
 | :--- | :--- | :--- | :--- |
-| **Physical Qubits Used** | 5 | 9 (5 active) | Processor B offers additional routing space |
-| **Circuit Depth** | 22 | 18 | Processor B achieves 18.2% lower depth |
-| **CX Gate Count** | 24 | 18 | Processor B requires 25% fewer CNOTs |
-| **SWAP Overhead** | 4 | 1 | Processor B's heavy-hex connectivity reduces routing overhead |
-| **Feasibility Rate** | 78.4% | 86.2% | Lower noise accumulation on Processor B |
-| **Approximation Ratio** | 0.812 | 0.894 | +8.2% accuracy improvement on Processor B |
+| **Physical Qubits Used** | 5 | 9 (5 active) | Processor B utilizes a sub-graph of its 9-qubit lattice |
+| **Circuit Depth** | 60 | 41 | Processor B achieves 31.7% lower circuit depth |
+| **CX Gate Count** | 32 | 26 | Processor B requires 18.75% fewer CNOT gates |
+| **Total Gates** | 87 | 81 | Processor B reduces total gate count by 6 |
+| **Feasibility Rate** | 86.28% | 85.03% | Both architectures enforce constraint bounds effectively |
+| **Optimal Bitstring Prob** | 2.32% | 2.17% | Output probability distribution across $2^5 = 32$ states |
+| **Approximation Ratio** | 0.5906 | 0.5895 | Comparable solution quality with lower gate depth on B |
 
 ## 4. Key Architectural Insights
-1. **Routing Overhead:** Processor A's branching tree topology forces multiple SWAP insertions to implement non-nearest-neighbor quadratic interaction terms $Z_i Z_j$.
-2. **Noise Accumulation:** Under the synthetic noise model ($p_{CX} = 0.5\%$), the extra 6 CNOT gates on Processor A cause decoherence and reduce the probability of obtaining the optimal state.
-3. **Heavy-Hex Advantage:** Processor B's sparse heavy-hex lattice provides shorter effective path lengths for all-to-all logical QUBO interactions, directly improving execution fidelity.
+1. **Routing Overhead:** Processor A's branching tree topology forces additional routing operations to implement non-nearest-neighbor quadratic interaction terms $Z_i Z_j$.
+2. **Noise Accumulation:** Under the synthetic noise model ($p_{CX} = 0.5\%$), the extra 6 CNOT gates on Processor A increase depth and decoherence exposure.
+3. **Heavy-Hex Advantage:** Processor B's sparse heavy-hex lattice provides shorter effective path lengths for all-to-all logical QUBO interactions, reducing transpiled circuit depth from 60 to 41.
