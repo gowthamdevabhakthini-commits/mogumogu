@@ -1,0 +1,26 @@
+[
+  {
+    "processor": "Processor_A",
+    "depth": 60,
+    "cx_count": 32,
+    "swap_count": 0,
+    "total_gates": 87,
+    "physical_qubits": 5,
+    "feasibility_rate": 0.86279296875,
+    "optimal_bitstring_prob": 0.023193359375,
+    "expected_value": 15.3568194680249,
+    "approximation_ratio": 0.5906469026163423
+  },
+  {
+    "processor": "Processor_B",
+    "depth": 41,
+    "cx_count": 26,
+    "swap_count": 0,
+    "total_gates": 81,
+    "physical_qubits": 9,
+    "feasibility_rate": 0.850341796875,
+    "optimal_bitstring_prob": 0.021728515625,
+    "expected_value": 15.3267298306058,
+    "approximation_ratio": 0.5894896088694538
+  }
+]
