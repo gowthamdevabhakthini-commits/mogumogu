@@ -40,3 +40,16 @@ Exact classical verification confirms the optimum selection as items $\{0, 1, 2,
 ## 5. Key Architectural Insights
 1. **Routing Cost Mitigation:** The $ZZ$ interaction terms in QAOA require non-nearest-neighbor two-qubit operations. Processor B's heavy-hex lattice permits SABRE routing paths with fewer SWAPs, lowering CX gate overhead from 32 to 26.
 2. **Decoherence Suppression:** Reducing circuit depth from 60 to 41 on Processor B reduces gate noise accumulation on NISQ hardware.
+
+## 6. Team & Acknowledgments
+
+This project was developed for **Qiskit Fall Fest 2026 (Phase 1)**
+
+| Member Name | Role / Specialization | Institution |
+| :--- | :--- | :--- |
+| **Meghana Sai** | SRM University-AP |
+| **Gowtham Devabhakthini** | IIIT Sri City |
+| **Pallavi Bachina** | SRM University-AP |
+| **Radhika** | SRM University-AP |
+| **Pavan Sai** | SRM University-AP |
+| **Likith** | SRM University-AP |

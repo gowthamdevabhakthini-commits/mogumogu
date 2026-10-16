@@ -110,3 +110,18 @@ python main.py
 1. **Routing Cost Mitigation:** The $ZZ$ interaction terms in the QAOA cost layer require non-nearest-neighbor two-qubit operations. Processor B's heavy-hex-inspired topology permits layout paths with fewer routing operations, lowering the CX gate overhead from 32 to 26.
 2. **Circuit Depth Reduction:** Transpiling to Processor B reduces circuit depth from 60 to 41, decreasing exposure to decoherence and gate noise during execution on noisy intermediate-scale quantum (NISQ) systems.
 3. **Constraint Feasibility:** Both processor configurations maintain an overall feasibility rate above 85%, confirming the effectiveness of the penalty factor ($P = 12.0$) in constraining optimization within valid capacity bounds.
+
+---
+
+## 7. Team & Acknowledgments
+
+This project was developed for **Qiskit Fall Fest 2026 (Phase 1)**
+
+| Member Name | Role / Specialization | Institution |
+| :--- | :--- | :--- |
+| **Meghana Sai** | SRM University-AP |
+| **Gowtham Devabhakthini** | IIIT Sri City |
+| **Pallavi Bachina** | SRM University-AP |
+| **Radhika** | SRM University-AP |
+| **Pavan Sai** | SRM University-AP |
+| **Likith** | SRM University-AP |
