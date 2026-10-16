@@ -2,7 +2,7 @@ import numpy as np
 from qiskit import QuantumCircuit
 
 class KnapsackQUBO:
-    def __init__(self, values, weights, capacity, penalty_factor=10.0):
+    def __init__(self, values, weights, capacity, penalty_factor=12.0):
         self.values = np.array(values)
         self.weights = np.array(weights)
         self.capacity = capacity
@@ -32,16 +32,12 @@ class KnapsackQUBO:
         return cost, v_total, w_total <= self.capacity
 
     def qubo_parameters(self):
-        # Convert x_i -> (1 - Z_i) / 2
         h = np.zeros(self.num_items)
         J = np.zeros((self.num_items, self.num_items))
         
-        # Linear terms from value: - v_i * (1 - Z_i)/2
         for i in range(self.num_items):
             h[i] += 0.5 * self.values[i]
             
-        # Quadratic penalty: P * (sum w_i (1-Z_i)/2 - Capacity)^2
-        # = P * [ (sum w_i/2 - C) - sum (w_i/2) Z_i ]^2
         const_offset = np.sum(self.weights) / 2.0 - self.capacity
         for i in range(self.num_items):
             h[i] += self.penalty * const_offset * self.weights[i]
@@ -49,29 +45,35 @@ class KnapsackQUBO:
                 J[i, j] += 0.5 * self.penalty * self.weights[i] * self.weights[j]
         return h, J
 
-def build_qaoa_circuit(qubo: KnapsackQUBO, gamma: float, beta: float) -> QuantumCircuit:
+def build_qaoa_circuit(qubo: KnapsackQUBO, gamma: list, beta: list) -> QuantumCircuit:
+    p = len(gamma)
     n = qubo.num_items
     qc = QuantumCircuit(n, n)
     h, J = qubo.qubo_parameters()
 
-    # Initial state preparation: equal superposition
+    # Initial equal superposition
     qc.h(range(n))
 
-    # Phase Separator (Cost Hamiltonian U_C)
-    for i in range(n):
-        if abs(h[i]) > 1e-6:
-            qc.rz(2 * gamma * h[i], i)
+    # p-layer QAOA Ansatz
+    for layer in range(p):
+        g = gamma[layer]
+        b = beta[layer]
 
-    for i in range(n):
-        for j in range(i + 1, n):
-            if abs(J[i, j]) > 1e-6:
-                qc.cx(i, j)
-                qc.rz(2 * gamma * J[i, j], j)
-                qc.cx(i, j)
+        # Cost Unitary U(H_C, gamma)
+        for i in range(n):
+            if abs(h[i]) > 1e-6:
+                qc.rz(2 * g * h[i], i)
 
-    # Mixer Hamiltonian (U_B)
-    for i in range(n):
-        qc.rx(2 * beta, i)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if abs(J[i, j]) > 1e-6:
+                    qc.cx(i, j)
+                    qc.rz(2 * g * J[i, j], j)
+                    qc.cx(i, j)
+
+        # Mixer Unitary U(H_B, beta)
+        for i in range(n):
+            qc.rx(2 * b, i)
 
     qc.measure(range(n), range(n))
     return qc

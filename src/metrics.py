@@ -20,7 +20,6 @@ def evaluate_execution_results(counts, qubo, shots=4096):
     opt_bitstring = qubo.classical_opt_bitstring
 
     for bitstr, count in counts.items():
-        # Reverse Qiskit bitstring order to match indexing if necessary
         rev_bitstr = bitstr[::-1]
         cost, value, is_valid = qubo.get_cost(rev_bitstr)
 
