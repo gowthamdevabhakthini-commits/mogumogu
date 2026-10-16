@@ -6,10 +6,10 @@
     "swap_count": 0,
     "total_gates": 87,
     "physical_qubits": 5,
-    "feasibility_rate": 0.89892578125,
-    "optimal_bitstring_prob": 0.043212890625,
-    "expected_value": 15.363117870722434,
-    "approximation_ratio": 0.5908891488739397
+    "feasibility_rate": 0.958984375,
+    "optimal_bitstring_prob": 0.087646484375,
+    "expected_value": 16.202393075356415,
+    "approximation_ratio": 0.6231689644367852
   },
   {
     "processor": "Processor_B",
@@ -18,9 +18,9 @@
     "swap_count": 0,
     "total_gates": 81,
     "physical_qubits": 9,
-    "feasibility_rate": 0.896484375,
-    "optimal_bitstring_prob": 0.044189453125,
-    "expected_value": 15.367102396514161,
-    "approximation_ratio": 0.5910423998659293
+    "feasibility_rate": 0.9560546875,
+    "optimal_bitstring_prob": 0.091064453125,
+    "expected_value": 16.124106230847804,
+    "approximation_ratio": 0.6201579319556848
   }
 ]
