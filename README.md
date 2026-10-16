@@ -118,7 +118,7 @@ python main.py
 This project was developed for **Qiskit Fall Fest 2026 (Phase 1)**
 
 | Member Name | Institution |
-| :--- | :--- | :--- |
+| :--- | :--- |
 | **Meghana Sai** | SRM University-AP |
 | **Gowtham Devabhakthini** | IIIT Sri City |
 | **Pallavi Bachina** | SRM University-AP |
