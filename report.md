@@ -15,6 +15,16 @@ Exact classical verification confirms the optimum selection as items $\{0, 1, 2,
 * **COBYLA Classical Outer Loop:** Rather than hardcoding parameters, we perform 50 iterations of COBYLA optimization to find variational angles $(\gamma, \beta)$ that minimize expectation cost $\langle H \rangle$.
 * **Readout Error Mitigation:** We construct an $n$-qubit calibration matrix $M$ using single-qubit response vectors and apply inverse transformation $M^{-1} P_{\text{noisy}}$ to recover state probabilities.
 
+### Visual Benchmark Highlights
+
+| Coupling Topologies | Performance Comparison |
+| :---: | :---: |
+| ![Processor A Topology](results/figures/processor_A_graph.png) | ![A vs B Metrics](results/figures/A_vs_B_performance.png) |
+
+| COBYLA Optimization Convergence | Mitigated State Distribution |
+| :---: | :---: |
+| ![Optimization Convergence](results/figures/qaoa_convergence.png) | ![State Distribution](results/figures/state_distribution.png) |
+
 ## 4. Comparative Architecture Analysis
 
 | Metric | Processor A (5 Qubits) | Processor B (9 Qubits) | Architectural Delta / Impact |

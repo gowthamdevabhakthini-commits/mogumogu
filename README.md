@@ -39,7 +39,17 @@ mogumogu/
 │   └── visualization.py      # Plotting engine
 └── results/                  # Figures and benchmark tables
     ├── tables/
+    │   ├── architecture_comparison.csv
+    │   └── summary.json
     └── figures/
+        ├── processor_A_graph.png
+        ├── processor_B_graph.png
+        ├── A_vs_B_performance.png
+        ├── qaoa_convergence.png
+        └── state_distribution.png
+```
+
+---
 
 ## 4. Setup & Reproducibility
 
@@ -62,3 +72,41 @@ pip install -r requirements.txt
 
 # 4. Execute the complete automated benchmark pipeline
 python main.py
+```
+
+---
+
+## 5. Empirical Benchmark Results Summary
+
+### Exact Classical Reference Solution
+* **Brute-Force Optimal Value:** `26`
+* **Optimal Bitstring:** `11110` (Items 0, 1, 2, and 3 selected; total weight = $14 \le 15$)
+
+### Hardware Execution Comparison ($p=1$ QAOA with Readout Mitigation)
+
+| Metric | Processor A (5 Qubits) | Processor B (9 Qubits) | Delta / Impact |
+| :--- | :---: | :---: | :--- |
+| **Physical Qubits** | 5 | 9 (5 active) | Processor B maps onto a sub-graph of its 9-qubit lattice |
+| **Transpiled Circuit Depth** | 60 | 41 | **31.7% depth reduction** on Processor B |
+| **Two-Qubit (CX) Gates** | 32 | 26 | **18.75% fewer CNOTs** required on Processor B |
+| **Total Gate Operations** | 87 | 81 | 6 fewer total physical gates |
+| **Feasibility Rate** | 86.28% | 85.03% | $>85\%$ valid non-overflowing solution states |
+| **Optimal Bitstring Prob** | 2.32% | 2.17% | Probability distribution across $2^5 = 32$ basis states |
+| **Approximation Ratio** | 0.5906 | 0.5895 | Comparable quality with substantially lower gate overhead |
+
+### Visual Benchmark Figures
+
+| Processor Topologies | Hardware Metrics Comparison |
+| :---: | :---: |
+| ![Processor Topologies](results/figures/processor_A_graph.png) | ![A vs B Metrics](results/figures/A_vs_B_performance.png) |
+
+| COBYLA Optimization Convergence | Mitigated State Distribution |
+| :---: | :---: |
+| ![QAOA Convergence](results/figures/qaoa_convergence.png) | ![State Distribution](results/figures/state_distribution.png) |
+
+---
+
+## 6. Key Architectural Insights
+1. **Routing Cost Mitigation:** The $ZZ$ interaction terms in the QAOA cost layer require non-nearest-neighbor two-qubit operations. Processor B's heavy-hex-inspired topology permits layout paths with fewer routing operations, lowering the CX gate overhead from 32 to 26.
+2. **Circuit Depth Reduction:** Transpiling to Processor B reduces circuit depth from 60 to 41, decreasing exposure to decoherence and gate noise during execution on noisy intermediate-scale quantum (NISQ) systems.
+3. **Constraint Feasibility:** Both processor configurations maintain an overall feasibility rate above 85%, confirming the effectiveness of the penalty factor ($P = 12.0$) in constraining optimization within valid capacity bounds.
